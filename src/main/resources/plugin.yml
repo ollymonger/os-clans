@@ -1,0 +1,11 @@
+name: clans
+version: "1.0"
+author: yllo
+main: cc.yllo.main
+commands:
+  clan:
+    description: general clan commands
+    usage: /<command> <args0> <args1>
+  helloworld:
+    description: hello world
+    usage: /<command>
