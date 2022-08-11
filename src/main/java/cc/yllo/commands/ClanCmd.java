@@ -3,7 +3,7 @@ package cc.yllo.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import cc.yllo.commands.topics.Help;
+import cc.yllo.commands.topics.HelloWorld;
 import cc.yllo.commands.topics.Test;
 import cc.yllo.types.GenericTopic;
 import cc.yllo.types.GenericCmd;
@@ -15,7 +15,7 @@ public class ClanCmd extends GenericCmd {
         description = "Clan command";
         usage = "/clan";
         argsList.add(new Test());
-        argsList.add(new Help());
+        argsList.add(new HelloWorld());
     }
 
     @Override
