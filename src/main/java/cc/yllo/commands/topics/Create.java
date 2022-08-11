@@ -1,6 +1,7 @@
 package cc.yllo.commands.topics;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import cc.yllo.main;
 import cc.yllo.types.GenericTopic;
@@ -15,6 +16,15 @@ public class Create extends GenericTopic {
     public boolean executeArgument(CommandSender sender, String[] args) {
         if(args.length == 1 || args.length == 2){
             String message = "Usage: /clan create <clan-name> <clan-tag>";
+            sender.sendMessage(message);
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        if(main.clanUtils.getPlayerClan(player.getUniqueId().toString()) != null){
+            String message = "You are already in a clan.";
+            main.plugin.getLogger().info("[Clans] " + player.getName() + " is already in a clan. Create clan failed.");
             sender.sendMessage(message);
             return true;
         }

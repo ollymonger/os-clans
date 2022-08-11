@@ -23,6 +23,8 @@ public class ClanUtils implements Listener {
     private static HashMap<String, ClanType> clanMap = new HashMap<String, ClanType>();
     public static ArrayList<YamlDocument> clans;
 
+    public static HashMap<String, String> membersMap = new HashMap<String, String>();
+
     // Generate a random number based on tick
     public static int randomNumber(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
@@ -34,7 +36,8 @@ public class ClanUtils implements Listener {
             String clanName = cfg.getSection("settings").getString("clanName");
             String uuid = cfg.getSection("settings").getString("uuid");
             String tag = cfg.getSection("settings").getString("clanTag");
-            ClanType clan = new ClanType(clanName, uuid, tag);
+            HashMap<String, Integer> members = (HashMap<String, Integer>) cfg.getSection("settings").getStringList("members");
+            ClanType clan = new ClanType(clanName, uuid, tag, members);
             clanMap.put(uuid, clan);
             main.plugin.getServer().getLogger().info("[Clans] Loaded clan: " + clanName);
         }
@@ -42,10 +45,22 @@ public class ClanUtils implements Listener {
 
     public static void addMember(String uuid, int type, String clanUuid){
         ClanType clan = clanMap.get(clanUuid);
-        clan.members.put(type, uuid);
+        clan.members.put(uuid, type);
+        membersMap.put(uuid, clanUuid);
         try {
             saveClan(clan);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeMember(String uuid, String clanUuid){
+        ClanType clan = clanMap.get(clanUuid);
+        clan.members.remove(uuid);
+        membersMap.remove(uuid);
+        try {
+            saveClan(clan);
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
@@ -71,6 +86,7 @@ public class ClanUtils implements Listener {
         // Hashmap key = uuid, value = clanName
         for(String key : clanMap.keySet()){
             if(clanMap.get(key).name.equals(clanName)){
+                main.plugin.getLogger().info("[Clans] Clan " + clanName + " already exists");
                 return false;
             }
         }
@@ -82,9 +98,10 @@ public class ClanUtils implements Listener {
 
         try {
             createClanConfig(clanName, uuid, tag);
-            clanMap.put(uuid, new ClanType(clanName, uuid, tag));
+            clanMap.put(uuid, new ClanType(clanName, uuid, tag, new HashMap<String, Integer>()));
             Player player = (Player) sender;
             addMember(player.getUniqueId().toString(), 0, uuid);
+            main.plugin.getLogger().info("[Clans] Created clan " + clanName);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +120,33 @@ public class ClanUtils implements Listener {
         }
     }
 
-    public static void saveAllClans() throws IOException{
+    public String getPlayerClan(String uuid) {
+        for(String key : clanMap.keySet()){
+            main.plugin.getLogger().info("Checking clan: " + clanMap.get(key).members.toString());
+            if(clanMap.get(key).members.containsKey(uuid)){
+                return clanMap.get(key).uuid;
+            }
+        }
+        return null;
+    }
+
+    public boolean addToMembersMap(String uuid, String clanUuid){
+        if(membersMap.containsKey(uuid)){
+            return false;
+        }
+        membersMap.put(uuid, clanUuid);
+        return true;
+    }
+
+    public boolean removeFromMembersMap(String uuid){
+        if(!membersMap.containsKey(uuid)){
+            return false;
+        }
+        membersMap.remove(uuid);
+        return true;
+    }
+
+    public void saveAllClans() throws IOException{
         // Maybe have a hash map of all clan configs
         // Iterate through the hash map and save each config
         for(YamlDocument cfg : clans){

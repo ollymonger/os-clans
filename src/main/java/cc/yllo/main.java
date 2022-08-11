@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import cc.yllo.events.OnCommand;
+import cc.yllo.events.OnPlayerLogin;
 import cc.yllo.events.PlayerChat;
 import cc.yllo.utils.ClanUtils;
 import cc.yllo.utils.Config;
@@ -33,6 +34,7 @@ public class main extends JavaPlugin {
         clanUtils = new ClanUtils();
         //REGISTER LISTENERS
         this.server.getPluginManager().registerEvents(config, this);
+        this.server.getPluginManager().registerEvents(new OnPlayerLogin(), this);
         this.server.getPluginManager().registerEvents(playerChat, this);
         this.server.getPluginManager().registerEvents(command, this);
         this.server.getPluginManager().registerEvents(clanUtils, this);
@@ -46,8 +48,7 @@ public class main extends JavaPlugin {
         this.saveConfig();
         try {
             this.getLogger().log(Level.INFO, "{ Clans } has been saved.");
-            ClanUtils.saveAllClans();
-            ClanUtils.clans.clear();
+            clanUtils.saveAllClans();
         } catch (IOException e){
             e.printStackTrace();
         }
