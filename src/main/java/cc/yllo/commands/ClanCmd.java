@@ -3,9 +3,8 @@ package cc.yllo.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import cc.yllo.commands.topics.HelloWorld;
-import cc.yllo.commands.topics.Test;
 import cc.yllo.types.GenericTopic;
+import cc.yllo.commands.topics.Create;
 import cc.yllo.types.GenericCmd;
 
 public class ClanCmd extends GenericCmd {
@@ -14,15 +13,16 @@ public class ClanCmd extends GenericCmd {
         name = "clan";
         description = "Clan command";
         usage = "/clan";
-        argsList.add(new Test());
-        argsList.add(new HelloWorld());
+        // argsList.add(new Test());
+        // argsList.add(new HelloWorld());
+        argsList.add(new Create());
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("clan")){
             if(args.length == 0){
-                String message = "Available help topics: ";
+                String message = "Available topics: ";
                 for(GenericTopic arg : argsList){
                     message += arg.arg + " ";
                 }

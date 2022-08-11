@@ -30,6 +30,29 @@ public class Config implements Listener {
         return config;
     }
 
+    public static YamlDocument[] getClans(){
+        // Look inside: clans/
+        // Return all the files inside the folder
+        File folder = new File("plugins/clans");
+        YamlDocument[] clans = new YamlDocument[folder.listFiles().length - 1];
+        int i = 0;
+        File[] listOfFiles = folder.listFiles();
+        // do not include the config.yml file
+        for(File clan : listOfFiles){
+            if(clan.getName().equals("config.yml")){
+                continue;
+            }
+            try {
+                clans[i] = YamlDocument.create(clan, main.plugin.getResource("clan_template.yml"),
+                        GeneralSettings.DEFAULT, LoaderSettings.builder().setAutoUpdate(true).build(), DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("file-version")).build());
+                i++;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return clans;
+    }
+
     public void createClanConfig(String clanName, String uuid, String tag){
         try {
             YamlDocument cfg = YamlDocument.create(new File(main.plugin.getDataFolder(), clanName+".yml"), main.plugin.getResource("clan_template.yml"),
@@ -38,6 +61,8 @@ public class Config implements Listener {
             cfg.getSection("settings").set("uuid", uuid);
             cfg.getSection("settings").set("clanName", clanName);
             cfg.getSection("settings").set("clanTag", tag);
+            cfg.save();
+            cfg.reload();
         } catch (IOException e) {
             e.printStackTrace();
         }
