@@ -53,4 +53,9 @@ public class ClanUtils implements Listener {
             return false;
         }
     }
+
+    public static void saveAllClans(){
+        // Maybe have a hash map of all clan configs
+        // Iterate through the hash map and save each config
+    }
 }
