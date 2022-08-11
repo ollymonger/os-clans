@@ -39,3 +39,10 @@
  - Extend: ```GenericPost```, create your constructor, edit the title (& optionally the body) strings. The title here is used as the args[1].
  - Add an @Overrid method for: boolean executePost
  - In your first Topic argument, under the constructor, add your created Post class to the post list.
+
+#### Committing for the first time?
+ - Please ensure you: 
+    - pulled master branch before working,
+    - have ran ```git checkout -b branchname``` to checkout a new branch, to create a pull request.
+    - have left a detailed git commit message
+    - ensured that only the files that are changed are uploaded.
