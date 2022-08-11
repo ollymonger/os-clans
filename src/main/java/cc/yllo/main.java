@@ -1,5 +1,6 @@
 package cc.yllo;
 
+import java.io.IOException;
 import java.util.logging.Level;
 
 import org.bukkit.Server;
@@ -43,6 +44,12 @@ public class main extends JavaPlugin {
         this.getLogger().log(Level.INFO, "{ Clans } has been disabled");
         // support reloading
         this.saveConfig();
+        try {
+            this.getLogger().log(Level.INFO, "{ Clans } has been saved.");
+            ClanUtils.saveAllClans();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
