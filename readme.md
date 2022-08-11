@@ -6,6 +6,8 @@
 ## Features
 - Class based command creation
 - BoostedYaml for Yaml processing
+- Creating clans, creating individual clan config files for easy editing,
+- TODO: saving all clan files, save individual clan file changes, maybe function to update specific section?
 
 ## FAQ
 #### How do I make a new command (no args)?
