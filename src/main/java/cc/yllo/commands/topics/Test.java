@@ -7,8 +7,6 @@ import cc.yllo.types.GenericTopic;
 import cc.yllo.types.GenericPost;
 
 public class Test extends GenericTopic {
-    // These are more like parent "topics", for example: Topic help will not have any extra arguments. 
-    // Kept out of the main cmd class to keep the code clean.
     public Test() {
         arg = "test";
         posts.add(new TestPost());
