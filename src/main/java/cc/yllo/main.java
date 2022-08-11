@@ -15,7 +15,7 @@ public class main extends JavaPlugin {
     // Main class: - should only contain startup methods, and shutdown methods
     public static Plugin plugin;
     public Server server;
-    public static ClanUtils clanUtils = new ClanUtils();
+    public static ClanUtils clanUtils;
 
     public static Config config;
 
@@ -29,6 +29,7 @@ public class main extends JavaPlugin {
         config = new Config();
         PlayerChat playerChat = new PlayerChat();
         OnCommand command = new OnCommand();
+        clanUtils = new ClanUtils();
         //REGISTER LISTENERS
         this.server.getPluginManager().registerEvents(config, this);
         this.server.getPluginManager().registerEvents(playerChat, this);
