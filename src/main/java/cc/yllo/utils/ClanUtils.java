@@ -16,7 +16,7 @@ public class ClanUtils implements Listener {
         return (int) (Math.random() * (max - min) + min);
     }
 
-    public static boolean createNewClan(String clanName, String tag){
+    public boolean createNewClan(String clanName, String tag){
         // Check in clanMap if the clanName is already in use
         // Hashmap key = uuid, value = clanName
         for(String key : clanMap.keySet()){

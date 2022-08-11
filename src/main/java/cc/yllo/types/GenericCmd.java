@@ -15,13 +15,14 @@ public class GenericCmd implements CommandExecutor, TabCompleter {
     public String usage;
 
     /* Topic is always arg[0] */
-    public static ArrayList<GenericTopic> argsList = new ArrayList<GenericTopic>();
+    public ArrayList<GenericTopic> argsList = new ArrayList<GenericTopic>();
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         // Loop through every single "generic topic" and return the list of topics
         List<String> list = new ArrayList<String>();
         if(args.length == 1){
+            list.clear();
             for(GenericTopic arg : argsList){
                 if(arg.arg.startsWith(args[0])){
                     list.add(arg.arg);
