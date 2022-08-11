@@ -78,6 +78,16 @@ public class ClanUtils implements Listener {
         }
     }
 
+    public static void saveClan(ClanType clan) throws IOException{
+        for(YamlDocument cfg : clans){
+            if(cfg.getSection("settings").getString("uuid").equals(clan.uuid)){
+                main.plugin.getLogger().info("Saving clan: " + clan.name);
+                cfg.save();
+                cfg.reload();
+            }
+        }
+    }
+
     public static void saveAllClans() throws IOException{
         // Maybe have a hash map of all clan configs
         // Iterate through the hash map and save each config
