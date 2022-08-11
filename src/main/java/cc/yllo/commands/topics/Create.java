@@ -19,7 +19,7 @@ public class Create extends GenericTopic {
             return true;
         }
 
-        Boolean create = main.clanUtils.createNewClan(args[1], args[2]);
+        Boolean create = main.clanUtils.createNewClan(sender, args[1], args[2]);
 
         if(create){
             String message = "Clan " + args[1] + " created with tag " + args[2];

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import cc.yllo.main;
@@ -38,6 +40,16 @@ public class ClanUtils implements Listener {
         }
     }
 
+    public static void addMember(String uuid, int type, String clanUuid){
+        ClanType clan = clanMap.get(clanUuid);
+        clan.members.put(type, uuid);
+        try {
+            saveClan(clan);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createClanConfig(String clanName, String uuid, String tag){
         try {
             YamlDocument cfg = YamlDocument.create(new File(main.plugin.getDataFolder(), clanName+".yml"), main.plugin.getResource("clan_template.yml"),
@@ -54,7 +66,7 @@ public class ClanUtils implements Listener {
         }
     }
 
-    public boolean createNewClan(String clanName, String tag){
+    public boolean createNewClan(CommandSender sender, String clanName, String tag){
         // Check in clanMap if the clanName is already in use
         // Hashmap key = uuid, value = clanName
         for(String key : clanMap.keySet()){
@@ -71,6 +83,8 @@ public class ClanUtils implements Listener {
         try {
             createClanConfig(clanName, uuid, tag);
             clanMap.put(uuid, new ClanType(clanName, uuid, tag));
+            Player player = (Player) sender;
+            addMember(player.getUniqueId().toString(), 0, uuid);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +96,7 @@ public class ClanUtils implements Listener {
         for(YamlDocument cfg : clans){
             if(cfg.getSection("settings").getString("uuid").equals(clan.uuid)){
                 main.plugin.getLogger().info("Saving clan: " + clan.name);
+                cfg.getSection("settings").set("members", clan.members);
                 cfg.save();
                 cfg.reload();
             }
