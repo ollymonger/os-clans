@@ -2,6 +2,8 @@ package cc.yllo.types;
 
 import java.util.HashMap;
 
+import cc.yllo.main;
+
 
 public class ClanType {
     public String name;

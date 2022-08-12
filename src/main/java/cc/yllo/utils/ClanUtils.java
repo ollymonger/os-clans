@@ -39,13 +39,11 @@ public class ClanUtils implements Listener {
             // Get members
             HashMap<String, Integer> members = new HashMap<String, Integer>();
             for(Object key : cfg.getSection("settings").getSection("members").getKeys()){
-                // get value from key
-                int value = cfg.getSection("settings").getStringList("members").indexOf(key);
-                main.plugin.getLogger().info(key + " " + value);
+                members.put(key.toString(), cfg.getSection("settings").getSection("members").getInt(key.toString()));
             }
             ClanType clan = new ClanType(clanName, uuid, tag, members);
             clanMap.put(uuid, clan);
-            main.plugin.getServer().getLogger().info("[Clans] Loaded clan: " + clanName + " member count: " + members.size());
+            main.plugin.getServer().getLogger().info("[Clans] Loaded clan: " + clanName);
         }
     }
 
