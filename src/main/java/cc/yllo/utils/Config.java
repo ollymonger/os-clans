@@ -2,6 +2,7 @@ package cc.yllo.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.bukkit.event.Listener;
 
@@ -30,7 +31,7 @@ public class Config implements Listener {
         return config;
     }
 
-    public static YamlDocument[] getClans(){
+    public static ArrayList<YamlDocument> getClans(){
         // Look inside: clans/
         // Return all the files inside the folder
         File folder = new File("plugins/clans");
@@ -50,21 +51,6 @@ public class Config implements Listener {
                 e.printStackTrace();
             }
         }
-        return clans;
-    }
-
-    public void createClanConfig(String clanName, String uuid, String tag){
-        try {
-            YamlDocument cfg = YamlDocument.create(new File(main.plugin.getDataFolder(), clanName+".yml"), main.plugin.getResource("clan_template.yml"),
-                    GeneralSettings.DEFAULT, LoaderSettings.builder().setAutoUpdate(true).build(), DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("file-version")).build());
-            
-            cfg.getSection("settings").set("uuid", uuid);
-            cfg.getSection("settings").set("clanName", clanName);
-            cfg.getSection("settings").set("clanTag", tag);
-            cfg.save();
-            cfg.reload();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return new ArrayList<YamlDocument>(java.util.Arrays.asList(clans));
     }
 }

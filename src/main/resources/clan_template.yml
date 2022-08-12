@@ -6,3 +6,4 @@ settings:
   uuid: uuid
   clanName: name
   clanTag: tag
+  members: {}
