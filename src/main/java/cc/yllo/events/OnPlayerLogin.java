@@ -10,7 +10,7 @@ import cc.yllo.main;
 public class OnPlayerLogin implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerLoginEvent event) {
-        String clan = main.clanUtils.getPlayerClan(event.getPlayer().getUniqueId().toString(), false);
+        String clan = main.clanUtils.getPlayerClan(event.getPlayer().getUniqueId().toString()).name;
 
         if(clan != null) {
             main.plugin.getLogger().info("[Clans] " + event.getPlayer().getName() + " is in clan " + clan);
