@@ -61,7 +61,9 @@ public class ClanUtils implements Listener {
     public static void removeMember(String uuid, String clanUuid){
         ClanType clan = clanMap.get(clanUuid);
         clan.members.remove(uuid);
-        membersMap.remove(uuid);
+        if(membersMap.containsKey(uuid)){
+            membersMap.remove(uuid);
+        }
         try {
             saveClan(clan);
         } catch(IOException e) {
@@ -126,7 +128,6 @@ public class ClanUtils implements Listener {
 
     public ClanType getPlayerClan(String uuid) {
         for(String key : clanMap.keySet()){
-            main.plugin.getLogger().info("Checking clan: " + clanMap.get(key).members.toString());
             if(clanMap.get(key).members.containsKey(uuid)){
                 return clanMap.get(key);
             }
@@ -135,7 +136,9 @@ public class ClanUtils implements Listener {
     }
 
     public boolean isLeader(String uuid, String clanUuid){
-        if(clanMap.get(clanUuid).members.get(uuid) == 0){
+        ClanType clan = getPlayerClan(uuid);
+
+        if(clan.members.get(uuid) == 0){
             return true;
         }
         return false;
@@ -157,31 +160,29 @@ public class ClanUtils implements Listener {
         return true;
     }
 
-    public boolean dissolveClan(String uuid){
-        if(!clanMap.containsKey(uuid)) return false;
-        
-        clanMap.remove(uuid);
+    public boolean dissolveClan(ClanType clan){
+        main.plugin.getLogger().info("Dissolving clan: " + clan.name);
+        for(String key : clan.members.keySet()){
+            clan.members.remove(key);
+        }
+
         YamlDocument selected = null;
-        for(YamlDocument key : clans){
-            if(key.getSection("settings").getString("uuid").equals(uuid)){
-                selected = key;
+
+        for(YamlDocument cfg : clans){
+            if(cfg.getSection("settings").getString("uuid").equals(clan.uuid)){
+                selected = cfg;
             }
         }
 
         if(selected == null) return false;
 
-        main.plugin.getLogger().info("Selected clan: " + selected.getSection("settings").getString("clanName"));
-
-        File file = new File(main.plugin.getDataFolder(), selected.getName().toString());
-        for(Object key : selected.getSection("settings").getSection("members").getKeys()){
-            removeMember(key.toString(), uuid);
-        }
-        main.plugin.getLogger().info("Removed members from clan");
-        clans.remove(selected);
-        main.plugin.getLogger().info("Removed clan from list");
+        clanMap.remove(clan.uuid);
+        File file = new File(main.plugin.getDataFolder(), clan.name+".yml");
         file.delete();
-        main.plugin.getLogger().info("Deleted clan file.");
-       
+        clans.remove(selected);
+
+        main.plugin.getLogger().info("[Clans] Clan " + clan.name + " dissolved successfully.");
+
         return true;
     }
 
