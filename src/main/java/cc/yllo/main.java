@@ -48,7 +48,7 @@ public class main extends JavaPlugin {
         this.saveConfig();
         try {
             this.getLogger().log(Level.INFO, "{ Clans } has been saved.");
-            clanUtils.saveAllClans();
+            ClanUtils.saveAllClans();
         } catch (IOException e){
             e.printStackTrace();
         }

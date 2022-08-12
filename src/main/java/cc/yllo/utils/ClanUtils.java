@@ -36,10 +36,16 @@ public class ClanUtils implements Listener {
             String clanName = cfg.getSection("settings").getString("clanName");
             String uuid = cfg.getSection("settings").getString("uuid");
             String tag = cfg.getSection("settings").getString("clanTag");
-            HashMap<String, Integer> members = (HashMap<String, Integer>) cfg.getSection("settings").getStringList("members");
+            // Get members
+            HashMap<String, Integer> members = new HashMap<String, Integer>();
+            for(Object key : cfg.getSection("settings").getSection("members").getKeys()){
+                // get value from key
+                int value = cfg.getSection("settings").getStringList("members").indexOf(key);
+                main.plugin.getLogger().info(key + " " + value);
+            }
             ClanType clan = new ClanType(clanName, uuid, tag, members);
             clanMap.put(uuid, clan);
-            main.plugin.getServer().getLogger().info("[Clans] Loaded clan: " + clanName);
+            main.plugin.getServer().getLogger().info("[Clans] Loaded clan: " + clanName + " member count: " + members.size());
         }
     }
 
@@ -146,11 +152,9 @@ public class ClanUtils implements Listener {
         return true;
     }
 
-    public void saveAllClans() throws IOException{
-        // Maybe have a hash map of all clan configs
-        // Iterate through the hash map and save each config
-        for(YamlDocument cfg : clans){
-            cfg.save();
+    public static void saveAllClans() throws IOException{
+        for(ClanType clan : clanMap.values()){
+            saveClan(clan);
         }
     }
 }
