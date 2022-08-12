@@ -135,6 +135,13 @@ public class ClanUtils implements Listener {
         return null;
     }
 
+    public boolean isLeader(String uuid, String clanUuid){
+        if(clanMap.get(clanUuid).members.get(uuid) == 0){
+            return true;
+        }
+        return false;
+    }
+
     public boolean addToMembersMap(String uuid, String clanUuid){
         if(membersMap.containsKey(uuid)){
             return false;
