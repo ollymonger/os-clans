@@ -13,7 +13,8 @@ public class PlayerChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         // get the format of the message
         String clanString = main.config.getConfig().getString("general.format");
+        String clanTag = main.clanUtils.getPlayerClan(event.getPlayer().getUniqueId().toString(), true);
         // add main.config.getConfig().getSection("general").getString("format") to the beginning
-        event.setFormat(ChatColor.translateAlternateColorCodes('&', clanString).replace("%CLAN%","test")+" "+event.getFormat());
+        event.setFormat(ChatColor.translateAlternateColorCodes('&', clanString).replace("%CLAN%",clanTag)+" "+event.getFormat());
     }
 }

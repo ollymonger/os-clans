@@ -124,10 +124,11 @@ public class ClanUtils implements Listener {
         }
     }
 
-    public String getPlayerClan(String uuid) {
+    public String getPlayerClan(String uuid, Boolean tag) {
         for(String key : clanMap.keySet()){
             main.plugin.getLogger().info("Checking clan: " + clanMap.get(key).members.toString());
             if(clanMap.get(key).members.containsKey(uuid)){
+                if (tag) return clanMap.get(key).tag;
                 return clanMap.get(key).uuid;
             }
         }
