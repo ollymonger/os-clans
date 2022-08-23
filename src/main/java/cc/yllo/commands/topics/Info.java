@@ -36,7 +36,7 @@ public class Info extends GenericTopic {
             // paginate 5 per page
             GenericPost post = new GenericPost();
             post.title = clan.name;
-            post.body = clan.members.size() + " members" + " | TAG: " + clan.tag;
+            post.body = clan.members.size() + " &7members" + "&d | &7TAG: " + clan.tag;
             posts.add(post);
         }
 
@@ -54,11 +54,11 @@ public class Info extends GenericTopic {
                         if(post.title.equalsIgnoreCase(args[1])){
                             // Maybe this should return some other message, to give the user a bit more info about this clan.
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7-=========={&c "+post.title+"&7 }==========-"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', post.title + "\n | " + post.body));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + post.title + "\n &d | &7" + post.body));
                             return true;
                         }
                     }
-                    sender.sendMessage("No clan found with that name");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cCould not find clan with name: " + args[1]));
                     return true;
                 }
             }
@@ -66,7 +66,7 @@ public class Info extends GenericTopic {
             String message = "";
 
             if(paginated.length == 0){
-                sender.sendMessage("No clans found on this page.");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cNo clans found on page " + page));
                 return true;
             }
 
@@ -74,8 +74,8 @@ public class Info extends GenericTopic {
                 message += post + "\n";
             }
 
-            message += "Page " + page + " of " + (posts.size() / pageSize + 1);
-            sender.sendMessage(message);
+            message += "&d{&3 Page " + page + " of " + (posts.size() / pageSize + 1+" &d}");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
             return true;
         }
         return true;
