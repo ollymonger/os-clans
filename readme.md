@@ -1,7 +1,7 @@
 ## os-clans
 #### The open source alternative to adding Clans to your server.
 
-- The aim of this project is to create an open source plugin of which you can either commit your requesteed changes/improvements or create a new fork and create your own plugin.
+- The aim of this project is to create an open source plugin of which you can either commit your requesteed changes/improvements or create a new fork and create your own plugin. Just reference this project in your fork to credit the work from here.
 
 ## Features
 - Class based command creation

@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 
 import cc.yllo.types.GenericTopic;
 import cc.yllo.commands.topics.Create;
+import cc.yllo.commands.topics.Dissolve;
 import cc.yllo.types.GenericCmd;
 
 public class ClanCmd extends GenericCmd {
@@ -16,6 +17,7 @@ public class ClanCmd extends GenericCmd {
         // argsList.add(new Test());
         // argsList.add(new HelloWorld());
         argsList.add(new Create());
+        argsList.add(new Dissolve());
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Create extends GenericTopic {
 
         Player player = (Player) sender;
 
-        if(main.clanUtils.getPlayerClan(player.getUniqueId().toString(), false) != null){
+        if(main.clanUtils.getPlayerClan(player.getUniqueId().toString()) != null){
             String message = "You are already in a clan.";
             main.plugin.getLogger().info("[Clans] " + player.getName() + " is already in a clan. Create clan failed.");
             sender.sendMessage(message);
