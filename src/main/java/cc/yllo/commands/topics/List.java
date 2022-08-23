@@ -53,6 +53,7 @@ public class List extends GenericTopic {
                     // If not, just return the specified post 
                     for(GenericPost post : posts){
                         if(post.title.equalsIgnoreCase(args[1])){
+                            // Maybe this should return some other message, to give the user a bit more info about this clan.
                             sender.sendMessage(post.title + " | " + post.body);
                             return true;
                         }
