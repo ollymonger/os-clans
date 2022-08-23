@@ -9,9 +9,9 @@ import cc.yllo.types.ClanType;
 import cc.yllo.types.GenericPost;
 import cc.yllo.types.GenericTopic;
 
-public class List extends GenericTopic {
-    public List(){
-        arg = "list";
+public class Info extends GenericTopic {
+    public Info(){
+        arg = "info";
         // posts list here will be argument numbers to paginate through all the clans from the ClanUtils
     }
 
