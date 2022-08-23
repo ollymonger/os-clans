@@ -2,6 +2,7 @@ package cc.yllo.commands.topics;
 
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import cc.yllo.main;
@@ -12,7 +13,6 @@ import cc.yllo.types.GenericTopic;
 public class Info extends GenericTopic {
     public Info(){
         arg = "info";
-        // posts list here will be argument numbers to paginate through all the clans from the ClanUtils
     }
 
     private Integer page = 1;
@@ -53,7 +53,8 @@ public class Info extends GenericTopic {
                     for(GenericPost post : posts){
                         if(post.title.equalsIgnoreCase(args[1])){
                             // Maybe this should return some other message, to give the user a bit more info about this clan.
-                            sender.sendMessage(post.title + " | " + post.body);
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7-=========={&c "+post.title+"&7 }==========-"));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', post.title + "\n | " + post.body));
                             return true;
                         }
                     }
