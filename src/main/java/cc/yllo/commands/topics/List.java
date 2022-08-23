@@ -3,7 +3,6 @@ package cc.yllo.commands.topics;
 import java.util.ArrayList;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import cc.yllo.main;
 import cc.yllo.types.ClanType;
