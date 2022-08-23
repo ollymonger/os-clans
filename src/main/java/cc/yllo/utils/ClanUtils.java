@@ -135,6 +135,10 @@ public class ClanUtils implements Listener {
         return null;
     }
 
+    public HashMap<String, ClanType> getClanMap() {
+        return clanMap;
+    }
+
     public boolean isLeader(String uuid, String clanUuid){
         ClanType clan = getPlayerClan(uuid);
 
